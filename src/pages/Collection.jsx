@@ -8,10 +8,35 @@ const Collection = () => {
     const { products } = useContext(ShopContext);
     const [showFilter, setShowFilter] = useState(false);
     const [filterProducts, setFilterProducts] = useState([]);
+    const [category, setCategory] = useState([]);
+    const [subCategory, setSubCategory] = useState([]);
+
+    const toggleCategory = (e) => {
+        if (category.includes(e.target.value)) {
+            setCategory(prev => prev.filter(item => item !== e.target.value));
+        }
+        else {
+            setCategory(prev => [...prev, e.target.value]);
+        }
+    }
+
+    const toggleSubCategory = (e) => {
+
+        if (subCategory.includes(e.target.value)) {
+            subCategory(prev => prev.filter(item => item !== e.target.value));
+        }
+        else {
+            subCategory(prev => [...prev, e.target.value]);
+        }
+    }
 
     useEffect(() => {
         setFilterProducts(products);
     }, [products]);
+
+    useEffect(() => {
+        console.log(category, subCategory);
+    }, [category, subCategory])
 
     const categories = ["Men", "Women", "Kids"];
     const types = ["Topwear", "Bottomwear", "Winterwear"];
@@ -47,7 +72,7 @@ const Collection = () => {
                                     key={cat}
                                     className="flex items-center gap-2 cursor-pointer hover:text-black"
                                 >
-                                    <input type="checkbox" value={cat} className="h-4 w-4 rounded border-gray-400" />
+                                    <input onChange={toggleCategory} type="checkbox" value={cat} className="h-4 w-4 rounded border-gray-400" />
                                     {cat.toUpperCase()}
                                 </label>
                             ))}
@@ -63,7 +88,7 @@ const Collection = () => {
                                     key={type}
                                     className="flex items-center gap-2 cursor-pointer hover:text-black"
                                 >
-                                    <input type="checkbox" value={type} className="h-4 w-4 rounded border-gray-400" />
+                                    <input onChange={toggleSubCategory} type="checkbox" value={type} className="h-4 w-4 rounded border-gray-400" />
                                     {type}
                                 </label>
                             ))}
