@@ -21,13 +21,24 @@ const Collection = () => {
     }
 
     const toggleSubCategory = (e) => {
-
         if (subCategory.includes(e.target.value)) {
-            subCategory(prev => prev.filter(item => item !== e.target.value));
+            setSubCategory(prev => prev.filter(item => item !== e.target.value));
         }
         else {
-            subCategory(prev => [...prev, e.target.value]);
+            setSubCategory(prev => [...prev, e.target.value]);
         }
+    }
+
+    // apply filter
+    const applyFilter = () => {
+        let productsCopy = products.slice();
+        if (category.length > 0) {
+            productsCopy = productsCopy.filter(item => category.includes(item.category));
+        }
+        if (subCategory.length > 0) {
+            productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory));
+        }
+        setFilterProducts(productsCopy);
     }
 
     useEffect(() => {
@@ -35,8 +46,9 @@ const Collection = () => {
     }, [products]);
 
     useEffect(() => {
-        console.log(category, subCategory);
+        applyFilter();
     }, [category, subCategory])
+
 
     const categories = ["Men", "Women", "Kids"];
     const types = ["Topwear", "Bottomwear", "Winterwear"];
