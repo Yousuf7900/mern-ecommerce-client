@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
+import SearchBar from "../components/SearchBar";
 
 const Layout = () => {
     return (
@@ -8,6 +9,7 @@ const Layout = () => {
             <nav>
                 <NavBar />
             </nav>
+            <SearchBar />
             <main>
                 <Outlet />
             </main>
